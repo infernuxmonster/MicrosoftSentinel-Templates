@@ -26,7 +26,7 @@
       "family": "A",
       "name": "Standard"
     },
-    "tenantId": "[subscription().tenantId]",
+    "tenantId": "[subscription().tenantId]"
   },
   "resources": [
     {
