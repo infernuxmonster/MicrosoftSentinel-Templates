@@ -41,7 +41,10 @@
            "FunctionName": "[concat(toLower(parameters('FunctionName')), uniqueString(resourceGroup().id))]",
            "StorageSuffix":"[environment().suffixes.storage]",
            "LogAnaltyicsUri":"[replace(environment().portal, 'https://portal', concat('https://', toLower(parameters('WorkspaceID')), '.ods.opinsights'))]",
-           "KeyVaultName": "[concat(substring(variables('FunctionName'), 0, 20), 'kv')]"
+           "KeyVaultName": "[concat(substring(variables('FunctionName'), 0, 20), 'kv')]",
+           "workspaceKey": "LogAnalyticsWorkspaceKey",
+           "APIUsername": "QualysAPIUsername",
+           "APIPassword": "QualysAPIPassword"
       },
       "resources": [
           {
@@ -177,7 +180,8 @@
                               "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultName'))]",
                               "[resourceId('Microsoft.KeyVault/vaults/secrets', variables('keyVaultName'), variables('workspaceKey'))]",
                               "[resourceId('Microsoft.KeyVault/vaults/secrets', variables('keyVaultName'), variables('APIUsername'))]",
-                              "[resourceId('Microsoft.KeyVault/vaults/secrets', variables('keyVaultName'), variables('APIPassword'))]"
+                              "[resourceId('Microsoft.KeyVault/vaults/secrets', variables('keyVaultName'), variables('APIPassword'))]",
+                              "[resourceId('Microsoft.Web/sites', variables('FunctionName'))]"
                           ],
                       "properties": {
                           "FUNCTIONS_EXTENSION_VERSION": "~3",
@@ -238,7 +242,7 @@
           },
           {
             "type": "Microsoft.KeyVault/vaults",
-            "apiVersion": "2022-07-01",
+            "apiVersion": "2016-10-01",
             "name": "[variables('KeyVaultName')]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
@@ -268,8 +272,8 @@
             },
             "resources": [
               {
-                "type": "Microsoft.KeyVault/vaults/secrets",
-                "apiVersion": "2021-04-01-preview",
+                "type": "secrets",
+                "apiVersion": "2016-10-01",
                 "name": "[variables('workspaceKey')]",
                 "properties": {
                   "value": "[parameters('workspaceKey')]"
@@ -279,8 +283,8 @@
                 ]
               },
               {
-                "type": "Microsoft.KeyVault/vaults/secrets",
-                "apiVersion": "2021-04-01-preview",
+                "type": "secrets",
+                "apiVersion": "2016-10-01",
                 "name": "[variables('APIUsername')]",
                 "properties": {
                   "value": "[parameters('APIUsername')]"
@@ -290,8 +294,8 @@
                 ]
               },
               {
-                "type": "Microsoft.KeyVault/vaults/secrets",
-                "apiVersion": "2021-04-01-preview",
+                "type": "secrets",
+                "apiVersion": "2016-10-01",
                 "name": "[variables('APIPassword')]",
                 "properties": {
                   "value": "[parameters('APIPassword')]"
