@@ -1,0 +1,42 @@
+trigger: none
+
+resources:
+  repositories:
+  - repository: Scripts
+    type: github
+    name: infernuxmonster/MicrosoftSentinel-Scripts
+    endpoint: infernuxmonsterSentinelScripts
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  - group: demo
+  - name: Scripts
+    value: '$(Build.Repository.LocalPath)/MicrosoftSentinel-Scripts/'
+  - name: ServiceConnection
+    value: 'azure_demo_tenant'
+  - name: prefix
+    value: 'infernux-'
+  - name: suffix
+    value: ''
+  - name: outputPath
+    value: '$(Pipeline.Workspace)/OutFiles'
+
+steps:
+- checkout: Scripts
+
+- task: AzurePowerShell@5
+  displayName: 'Download and parse analytic rule'
+  inputs:
+    azureSubscription: $(ServiceConnection)
+    ScriptPath: '$(Scripts)/Get-MicrosoftSentinelAnalyticRulesPipeline.ps1'
+    ScriptArguments: '-outputPath $(outputPath) -prefix $(prefix) -suffix $(suffix)'
+    azurePowerShellVersion: LatestVersion
+    pwsh: true
+
+- task: PublishBuildArtifact@1
+  displayName: 'Publish parsed analytic rules artifact'
+  inputs: 
+    PathtoPublish: $(outputPath)
+    ArtifactName: ParsedRules
