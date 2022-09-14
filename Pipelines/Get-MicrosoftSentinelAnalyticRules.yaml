@@ -35,7 +35,7 @@ steps:
     azurePowerShellVersion: LatestVersion
     pwsh: true
 
-- task: PublishBuildArtifact@1
+- task: PublishBuildArtifacts@1
   displayName: 'Publish parsed analytic rules artifact'
   inputs: 
     PathtoPublish: $(outputPath)
