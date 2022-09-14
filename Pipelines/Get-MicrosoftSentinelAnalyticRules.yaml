@@ -5,7 +5,7 @@ resources:
   - repository: Scripts
     type: github
     name: infernuxmonster/MicrosoftSentinel-Scripts
-    endpoint: infernuxmonsterSentinelScripts
+    endpoint: infernuxmonster
 
 pool:
   vmImage: 'windows-latest'
