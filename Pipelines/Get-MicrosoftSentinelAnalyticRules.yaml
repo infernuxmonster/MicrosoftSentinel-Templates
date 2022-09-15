@@ -13,7 +13,7 @@ pool:
 variables:
   - group: demo
   - name: Scripts
-    value: '$(Build.Repository.LocalPath)/MicrosoftSentinel-Scripts/'
+    value: '$(Build.Repository.LocalPath)/'
   - name: ServiceConnection
     value: 'azure_demo_tenant'
   - name: prefix
