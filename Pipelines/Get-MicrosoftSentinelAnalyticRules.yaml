@@ -17,9 +17,9 @@ variables:
   - name: ServiceConnection
     value: 'azure_demo_tenant'
   - name: prefix
-    value: 'infernux-'
+    value: 'inf-'
   - name: suffix
-    value: ''
+    value: '-dev'
   - name: outputPath
     value: '$(Pipeline.Workspace)/OutFiles'
 
