@@ -1,0 +1,74 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "existingWorkspaceName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the Sentinel workspace where the automation rule will be deployed"
+            }
+        },
+        "automationRuleName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the automation rule that will be deployed"
+            }
+        },
+        "existingRuleId": {
+            "type": "string",
+            "metadata": {
+                "description": "The analytics rule GUID that is used in the triggering conditions. Feel free to remove the condition below if you don't need it."
+            }
+        },
+        "playbookResourceId" : {
+            "type": "string"
+        },
+        "tenantId" : {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "automationRuleGuid": "[uniqueString(parameters('automationRuleName'))]" 
+    },
+    "resources": [
+        {
+            "type": "Microsoft.SecurityInsights/automationRules",
+            "name": "[variables('automationRuleGuid')]",
+            "scope": "[concat('Microsoft.OperationalInsights/workspaces/', parameters('existingWorkspaceName'))]",
+            "apiVersion": "2019-01-01-preview",
+            "properties": {
+                "displayName": "[parameters('automationRuleName')]",
+                "order": 2,
+                "triggeringLogic": {
+                    "isEnabled": true,
+                    "expirationTimeUtc": null,
+                    "triggersOn": "Incidents",
+                    "triggersWhen": "Created",
+                    "conditions": [
+                            {
+                                "conditionType": "Property",
+                                "conditionProperties": {
+                                    "propertyName": "IncidentTitle",
+                                    "operator": "Contains",
+                                    "propertyValues": [
+                                        "PermissionsTest"
+                                    ]
+                                }
+                            }
+                    ]
+                },
+                "actions": [
+                    {
+                        "order": 2,
+                        "actionType": "RunPlaybook",
+                        "actionConfiguration": {
+                          "logicAppResourceId": "[parameters('playbookResourceId')]",
+                          "tenantId": "[parameters('tenantId')]"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "outputs": {}
+}
