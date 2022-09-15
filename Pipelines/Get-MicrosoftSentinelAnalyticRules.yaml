@@ -16,10 +16,6 @@ variables:
     value: '$(Build.Repository.LocalPath)/'
   - name: ServiceConnection
     value: 'azure_demo_tenant'
-  - name: prefix
-    value: 'infernux-'
-  - name: suffix
-    value: '-dev'
   - name: outputPath
     value: '$(Pipeline.Workspace)/OutFiles'
 
@@ -30,7 +26,7 @@ steps:
   inputs:
     azureSubscription: $(ServiceConnection)
     ScriptPath: '$(Scripts)/Get-MicrosoftSentinelAnalyticRulesPipeline.ps1'
-    ScriptArguments: '-outputPath $(outputPath) -prefix $(prefix) -suffix $(suffix)'
+    ScriptArguments: '-outputPath $(outputPath)'
     azurePowerShellVersion: LatestVersion
     pwsh: true
 
