@@ -24,14 +24,6 @@ variables:
     value: '$(Pipeline.Workspace)/OutFiles'
 
 steps:
-- checkout: Scripts
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-        Write-Host "Adding subscriptionId to env"
-  env:
-    SUBID: $(SUBID) 
 - task: AzurePowerShell@5
   displayName: 'Download and parse analytic rule'
   inputs:
