@@ -25,11 +25,13 @@ variables:
 
 steps:
 - checkout: Scripts
-
 - task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+        Write-Host "Adding subscriptionId to env"
   env:
-    SUBID: $(SUBID)
-
+    SUBID: $(SUBID) 
 - task: AzurePowerShell@5
   displayName: 'Download and parse analytic rule'
   inputs:
@@ -38,7 +40,6 @@ steps:
     ScriptArguments: '-outputPath $(outputPath) -prefix $(prefix) -suffix $(suffix)'
     azurePowerShellVersion: LatestVersion
     pwsh: true
-
 - task: PublishBuildArtifacts@1
   displayName: 'Publish parsed analytic rules artifact'
   inputs: 
