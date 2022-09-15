@@ -26,6 +26,10 @@ variables:
 steps:
 - checkout: Scripts
 
+- task: PowerShell@2
+  env:
+    SUBID: $(SUBID)
+
 - task: AzurePowerShell@5
   displayName: 'Download and parse analytic rule'
   inputs:
