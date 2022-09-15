@@ -24,6 +24,7 @@ variables:
     value: '$(Pipeline.Workspace)/OutFiles'
 
 steps:
+- checkout: Scripts
 - task: AzurePowerShell@5
   displayName: 'Download and parse analytic rule'
   inputs:
