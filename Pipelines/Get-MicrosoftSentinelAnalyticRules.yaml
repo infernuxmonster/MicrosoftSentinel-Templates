@@ -32,6 +32,7 @@ steps:
     ScriptArguments: '-outputPath $(outputPath) -prefix $(prefix) -suffix $(suffix)'
     azurePowerShellVersion: LatestVersion
     pwsh: true
+
 - task: PublishBuildArtifacts@1
   displayName: 'Publish parsed analytic rules artifact'
   inputs: 
