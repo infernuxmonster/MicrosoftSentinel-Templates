@@ -7,14 +7,14 @@
             "metadata": {
                 "description": "Specify a unique name for your offer"
             },
-            "defaultValue": "Shortcake Company - Managed VM"
+            "defaultValue": "Shortcake Company - Managed Sentinel"
         },
         "mspOfferDescription": {
             "type": "string",
             "metadata": {
                 "description": "Name of the Managed Service Provider offering"
             },
-            "defaultValue": "Managed Virtual Machines as a Service"
+            "defaultValue": "Managed Sentinel as a Service"
         },
         "managedByTenantId": {
             "type": "string",
@@ -31,8 +31,8 @@
             "defaultValue": [
                 {
                     "principalId": "00000000-0000-0000-0000-000000000000",
-                    "principalIdDisplayName": "Customer Strawberry Ltd - VM Admin",
-                    "roleDefinitionId": "9980e02c-c2be-4d73-94e8-173b1dc7cf3c"
+                    "principalIdDisplayName": "Customer Strawberry Ltd - Sentinel Contributor",
+                    "roleDefinitionId": "ab8e14d6-4a74-4a29-9ba8-549422addade"
                 }
             ]
         }              
