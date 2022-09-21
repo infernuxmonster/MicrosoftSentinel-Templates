@@ -6,25 +6,35 @@
             "type": "string",
             "metadata": {
                 "description": "Specify a unique name for your offer"
-            }
+            },
+            "defaultValue": "Shortcake Company - Managed VM"
         },
         "mspOfferDescription": {
             "type": "string",
             "metadata": {
                 "description": "Name of the Managed Service Provider offering"
-            }
+            },
+            "defaultValue": "Managed Virtual Machines as a Service"
         },
         "managedByTenantId": {
             "type": "string",
             "metadata": {
                 "description": "Specify the tenant id of the Managed Service Provider"
-            }
+            },
+            "defaultValue": "tenantId"
         },
         "authorizations": {
             "type": "array",
             "metadata": {
                 "description": "Specify an array of objects, containing tuples of Azure Active Directory principalId, a Azure roleDefinitionId, and an optional principalIdDisplayName. The roleDefinition specified is granted to the principalId in the provider's Active Directory and the principalIdDisplayName is visible to customers."
-            }
+            },
+            "defaultValue": [
+                {
+                    "principalId": "00000000-0000-0000-0000-000000000000",
+                    "principalIdDisplayName": "Customer Strawberry Ltd - VM Admin",
+                    "roleDefinitionId": "9980e02c-c2be-4d73-94e8-173b1dc7cf3c"
+                }
+            ]
         }              
     },
     "variables": {
