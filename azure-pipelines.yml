@@ -1,0 +1,9 @@
+resources:
+  webhooks:
+    - webhook: infernux_webhook     ### Webhook alias
+      connection: infernux_webhook  ### Incoming webhook service connection
+      filters:
+        - path: allowlistvalue      ### JSON path in the payload
+          value: SuperSecureJK1     ### Expected value in the path provided
+
+
